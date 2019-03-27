@@ -136,9 +136,6 @@ function get_all_channels(token){
     $.ajax({
         type: "GET",
         url: get_url,
-        data: {
-          channelid: i  
-        },
         dataType: "json",
         success: function(data, status) {
             for (let i of data.items){
