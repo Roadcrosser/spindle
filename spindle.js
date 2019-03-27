@@ -10,9 +10,10 @@ const OAUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth\
 &scope=${encodeURIComponent(SCOPE)}`;
 
 let token = localStorage.getItem("access_token");
-// if (!token || Date.now() > parseFloat(localStorage.getItem("expires_at"))){
-//     window.location.replace(OAUTH_URL);
-// }
+if (!token || Date.now() > parseFloat(localStorage.getItem("expires_at"))){
+    console.log(`redirect to ${OAUTH_URL} standin`);
+    // window.location.replace(OAUTH_URL);
+}
 
 const SUBSCRIPTIONS_URL = `https://www.googleapis.com/youtube/v3/subscriptions?access_token=${token}&part=snippet&mine=true&maxResults=50`
 const FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
@@ -149,7 +150,8 @@ function get_all_channels(token){
         },
         error: function() {
             alert("There was an error with your token or YouTube.\nRedirecting to login...");
-            window.location.replace(OAUTH_URL);
+            console.log(`redirect to ${OAUTH_URL} standin`);
+            // window.location.replace(OAUTH_URL);
         }
         });
 }
