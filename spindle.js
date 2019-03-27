@@ -140,7 +140,7 @@ function get_all_channels(token){
         dataType: "json",
         success: function(data, status) {
             for (let i of data.items){
-                channel_ids.push(i.snippet.channelId);
+                channel_ids.push(i.snippet.resourceId.channelId);
             }
             if (data.hasOwnProperty("nextPageToken")){
                 get_all_channels(data.nextPageToken);
