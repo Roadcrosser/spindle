@@ -9,10 +9,10 @@ const OAUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth\
 &response_type=${RESPONSE_TYPE}\
 &scope=${encodeURIComponent(SCOPE)}`;
 
-let token = localStorage.getItem("access_token");
-if (!token || (Date.now() / 1000) > parseFloat(localStorage.getItem("expires_at"))){
-    window.location.replace(OAUTH_URL);
-}
+// let token = localStorage.getItem("access_token");
+// if (!token || Date.now() > parseFloat(localStorage.getItem("expires_at"))){
+//     window.location.replace(OAUTH_URL);
+// }
 
 const SUBSCRIPTIONS_URL = `https://www.googleapis.com/youtube/v3/subscriptions?access_token=${token}&part=snippet&mine=true&maxResults=50`
 const FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
@@ -209,3 +209,5 @@ function push_feed(no_data=false){
        $("#feed").append(i.as_block(now));
     }
 }
+
+get_all_channels(null);
