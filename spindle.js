@@ -9,7 +9,7 @@ const OAUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth\
 &response_type=${RESPONSE_TYPE}\
 &scope=${encodeURIComponent(SCOPE)}`;
 
-// let token = localStorage.getItem("access_token");
+let token = localStorage.getItem("access_token");
 // if (!token || Date.now() > parseFloat(localStorage.getItem("expires_at"))){
 //     window.location.replace(OAUTH_URL);
 // }
