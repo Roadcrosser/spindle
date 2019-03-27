@@ -121,7 +121,7 @@ class Video {
                     )
                 ).append(
                 $("<div></div>").addClass("undertext").append(
-                    " • " + this.calculate_readable_diff(now)
+                    format_viewcount() + " • " + this.calculate_readable_diff(now)
                     )
                 )
             );
