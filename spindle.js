@@ -12,6 +12,7 @@ const OAUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth\
 let token = localStorage.getItem("access_token");
 if (!token || Date.now() > parseFloat(localStorage.getItem("expires_at"))){
     window.location.replace(OAUTH_URL);
+    throw new Error();
 }
 
 const SUBSCRIPTIONS_URL = `https://www.googleapis.com/youtube/v3/subscriptions?access_token=${token}&part=snippet&mine=true&maxResults=50`
