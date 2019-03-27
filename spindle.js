@@ -220,7 +220,7 @@ function push_feed(no_data=false){
     }
 
     if (!loaded){
-        $("#feed").text(`Channels Loaded: ${loaded_count}/${channel_ids.length}`);
+        $("#feed").text(`Channels Loaded: ${loaded_count} / ${Object.keys(channel_ids).length}`);
         return
     }
 
