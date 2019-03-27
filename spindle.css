@@ -1,0 +1,28 @@
+body{
+    background: #121212;
+    color: white;
+}
+
+.response {
+    width: 30em;
+}
+
+.feeditem {
+    max-width: 15em;
+    min-height: 20em;
+    margin-left: .5em;
+    margin-right: .5em;
+    margin-top: 1em;
+}
+
+.feedthumb {
+    width: 15em;
+}
+
+.videolink, .videolink:hover {
+    color: #FFFFFF;
+}
+
+.undertext, .undertext:hover {
+    color: #AAAAAA;
+}
