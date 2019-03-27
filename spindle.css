@@ -26,3 +26,7 @@ body{
 .undertext, .undertext:hover {
     color: #AAAAAA;
 }
+
+.progress {
+    height: 0.2em;
+}

@@ -20,13 +20,13 @@ const FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
 const CORS_BYPASS_API = "https://cors-anywhere.herokuapp.com/";
 
 class Video {
-    constructor(id, title, channelname, channelid, views, ratings, ts) {
+    constructor(id, title, channelname, channelid, views, rating, ts) {
         this.id = id;
         this.title = title;
         this.channel = channelname;
         this.channelid = channelid;
         this.views = views;
-        this.ratings = ratings;
+        this.rating = rating;
         this.ts = Date.parse(ts);
     }
 
@@ -40,6 +40,10 @@ class Video {
     
     get_url() {
         return `https://www.youtube.com/watch?v=${this.id}`;
+    }
+
+    format_viewcount() {
+        return this.views.toLocaleString();
     }
     
     calculate_readable_diff(now) {
@@ -101,7 +105,11 @@ class Video {
             ).addClass("feedthumb")
                 )
             );
-        
+        ret.append(
+            $("<div></div>").addClass(`progress ${this.rating ? "bg-danger" : "bg-secondary"}`).append(
+                $("<div></div>").addClass("progress-bar bg-success").attr("role", "progressbar").css("width", `${this.rating ? this.rating * 100 : 0}%`)
+            )
+        );
         ret.append(
             $("<div></div>").addClass("px-1 mt-1").append(
                 $("<div></div>").append(
@@ -113,7 +121,7 @@ class Video {
                     )
                 ).append(
                 $("<div></div>").addClass("undertext").append(
-                    this.calculate_readable_diff(now)
+                    " • " + this.calculate_readable_diff(now)
                     )
                 )
             );
