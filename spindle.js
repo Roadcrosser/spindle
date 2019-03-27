@@ -11,12 +11,12 @@ const OAUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth\
 
 let token = localStorage.getItem("access_token");
 if (!token || Date.now() > parseFloat(localStorage.getItem("expires_at"))){
-    console.log(`redirect to ${OAUTH_URL} standin`);
-    // window.location.replace(OAUTH_URL);
+    window.location.replace(OAUTH_URL);
 }
 
 const SUBSCRIPTIONS_URL = `https://www.googleapis.com/youtube/v3/subscriptions?access_token=${token}&part=snippet&mine=true&maxResults=50`
 const FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
+const CORS_BYPASS_API = "https://cors-anywhere.herokuapp.com/";
 
 class Video {
     constructor(id, title, channelname, channelid, views, ratings, ts) {
@@ -150,8 +150,7 @@ function get_all_channels(token){
         },
         error: function() {
             alert("There was an error with your token or YouTube.\nRedirecting to login...");
-            console.log(`redirect to ${OAUTH_URL} standin`);
-            // window.location.replace(OAUTH_URL);
+            window.location.replace(OAUTH_URL);
         }
         });
 }
@@ -160,7 +159,7 @@ function get_videos() {
     for (let i of channel_ids){
         $.ajax({
             type: "GET",
-            url: FEED_URL + i,
+            url: CORS_BYPASS_API + FEED_URL + i,
             dataType: "xml",
             success: function(data) {
                 let channel_name = data.getElementsByTagName("title")[0].textContent;
