@@ -1,5 +1,5 @@
 const CLIENT_ID = "1037496644275-0ueocdgloa5q3a31sqjoi5aaugkrjq7a.apps.googleusercontent.com";
-const REDIRECT_URI = "https://spindle.github.io/callback";
+const REDIRECT_URI = "https://roadcrosser.xyz/spindle/callback";
 const RESPONSE_TYPE = "token";
 const SCOPE = "https://www.googleapis.com/auth/youtube.readonly";
 
