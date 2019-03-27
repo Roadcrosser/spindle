@@ -20,9 +20,10 @@ const FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
 const CORS_BYPASS_API = "https://cors-anywhere.herokuapp.com/";
 
 class Video {
-    constructor(id, title, channelname, channelid, views, rating, ts) {
+    constructor(id, title, thumbnail, channelname, channelid, views, rating, ts) {
         this.id = id;
         this.title = title;
+        this.thumbnail = thumbnail;
         this.channel = channelname;
         this.channelid = channelid;
         this.views = views;
@@ -33,11 +34,7 @@ class Video {
     get_ts() {
         return this.ts;
     }
-    
-    get_thumbnail() {
-        return `https://img.youtube.com/vi/${this.id}/mqdefault.jpg`;
-    }
-    
+
     get_url() {
         return `https://www.youtube.com/watch?v=${this.id}`;
     }
@@ -100,7 +97,7 @@ class Video {
             $("<a></a>").attr("href", this.get_url()
         ).append(
             $("<img></img>"
-            ).attr("src", this.get_thumbnail()
+            ).attr("src", this.thumbnail
             ).attr("title", this.title
             ).addClass("feedthumb")
                 )
@@ -176,11 +173,12 @@ function get_videos() {
                 for (let key of data.getElementsByTagName("entry")) {
                     let v_id = key.getElementsByTagName("yt:videoId")[0].textContent;
                     let v_title = key.getElementsByTagName("title")[0].textContent;
+                    let v_thumbnail = key.getElementsByTagName("media:thumbnail")[0].getAttribute("url");
                     let v_views = parseInt(key.getElementsByTagName("media:statistics")[0].getAttribute("views"));
                     let v_ratings = calculate_ratings(key.getElementsByTagName("media:starRating")[0]);
                     let v_timestamp = key.getElementsByTagName("published")[0].textContent;
 
-                    all_videos.push(new Video(v_id, v_title, channel_name, i, v_views, v_ratings, v_timestamp));
+                    all_videos.push(new Video(v_id, v_title, v_thumbnail, channel_name, i, v_views, v_ratings, v_timestamp));
                 };
                 channel_ids[i] = true;
                 push_feed();
