@@ -6,6 +6,8 @@ if (window.location.hash.length > 1) {
   }
 }
 
-localStorage.setItem("access_token", params.access_token);
-localStorage.setItem("expires_at", Date.now() + params.expires_in * 1000);
-window.location.replace("..");
+if (params.hasOwnProperty("access_token")){
+    localStorage.setItem("access_token", params.access_token);
+    localStorage.setItem("expires_at", Date.now() + params.expires_in * 1000);
+}
+window.location.replace("../");

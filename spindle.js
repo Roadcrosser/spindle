@@ -173,7 +173,7 @@ function get_videos() {
 
                     all_videos.push(new Video(v_id, v_title, channel_name, i, v_views, v_ratings, v_timestamp));
                 };
-                // channel_ids[i.snippet.resourceId.channelId] = true;
+                channel_ids[i.snippet.resourceId.channelId] = true;
                 push_feed();
             },
         });
@@ -194,9 +194,9 @@ function calculate_ratings(tag){
 
 
 function push_feed(no_data=false){
-    // if (!channel_ids.every(function(i) { return i; })){
-    //     return;
-    // }
+    if (!channel_ids.every(function(i) { return i; })){
+        return;
+    }
 
     let now = Date.now();
     $("#feed").empty();
