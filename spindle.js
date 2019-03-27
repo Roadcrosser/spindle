@@ -125,7 +125,7 @@ function s_logic(num){
     return num != 1 ? "s" : "";
 }
 
-let channel_ids = [];
+let channel_ids = {};
 let all_videos = [];
 
 function get_all_channels(token){
@@ -140,7 +140,7 @@ function get_all_channels(token){
         dataType: "json",
         success: function(data, status) {
             for (let i of data.items){
-                channel_ids.push(i.snippet.resourceId.channelId);
+                channel_ids[i.snippet.resourceId.channelId] = false;
             }
             if (data.hasOwnProperty("nextPageToken")){
                 get_all_channels(data.nextPageToken);
@@ -156,7 +156,7 @@ function get_all_channels(token){
 }
 
 function get_videos() {
-    for (let i of channel_ids){
+    for (let i in channel_ids){
         $.ajax({
             type: "GET",
             url: CORS_BYPASS_API + FEED_URL + i,
@@ -172,8 +172,9 @@ function get_videos() {
                     let v_timestamp = key.getElementsByTagName("published")[0].textContent;
 
                     all_videos.push(new Video(v_id, v_title, channel_name, i, v_views, v_ratings, v_timestamp));
-                    push_feed();
                 };
+                // channel_ids[i.snippet.resourceId.channelId] = true;
+                push_feed();
             },
         });
     }
@@ -193,6 +194,10 @@ function calculate_ratings(tag){
 
 
 function push_feed(no_data=false){
+    // if (!channel_ids.every(function(i) { return i; })){
+    //     return;
+    // }
+
     let now = Date.now();
     $("#feed").empty();
     
