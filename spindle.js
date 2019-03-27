@@ -164,7 +164,7 @@ function get_videos() {
             success: function(data) {
                 let channel_name = data.getElementsByTagName("title")[0].textContent;
 
-                data.getElementsByTagName("entry").forEach(function(key) {
+                for (let key of data.getElementsByTagName("entry")) {
                     let v_id = key.getElementsByTagName("yt:videoId")[0].textContent;
                     let v_title = key.getElementsByTagName("title")[0].textContent;
                     let v_views = parseInt(key.getElementsByTagName("media:statistics")[0].getAttribute("views"));
@@ -173,7 +173,7 @@ function get_videos() {
 
                     all_videos.push(new Video(v_id, v_title, channel_name, i, v_views, v_ratings, v_timestamp));
                     push_feed();
-                });
+                };
             },
         });
     }
