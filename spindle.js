@@ -43,7 +43,7 @@ class Video {
     }
 
     format_viewcount() {
-        return this.views.toLocaleString();
+        return this.views.toLocaleString() + " views";
     }
     
     calculate_readable_diff(now) {
@@ -203,19 +203,29 @@ function calculate_ratings(tag){
 
 
 function push_feed(no_data=false){
+    $("#feed").empty();
+    if (no_data){
+        $("#feed").text("No videos found.");
+        return;
+    }
+
+    let loaded_count = 0;
+    let loaded = true
     for (let i in channel_ids){
-        if (!channel_ids[i]) {
-            return;
+        if (channel_ids[i]) {
+            loaded_count++;
+        } else {
+            loaded = false;
         }
     }
 
-    let now = Date.now();
-    $("#feed").empty();
-    
-    if (no_data){
-        $("#feed").append($("<div></div>").addClass("col").text("No videos found."));
-        return;
+    if (!loaded){
+        $("#feed").text(`Channels Loaded: ${loaded_count}/${channel_ids.length}`);
+        return
     }
+
+    let now = Date.now();
+    
     let sorted_videos = all_videos.slice().sort((a, b) => a.get_ts() - b.get_ts());
     sorted_videos.reverse();
     
