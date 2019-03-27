@@ -173,7 +173,7 @@ function get_videos() {
 
                     all_videos.push(new Video(v_id, v_title, channel_name, i, v_views, v_ratings, v_timestamp));
                 };
-                channel_ids[i.snippet.resourceId.channelId] = true;
+                channel_ids[i] = true;
                 push_feed();
             },
         });
