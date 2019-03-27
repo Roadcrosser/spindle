@@ -194,8 +194,10 @@ function calculate_ratings(tag){
 
 
 function push_feed(no_data=false){
-    if (!channel_ids.every(function(i) { return i; })){
-        return;
+    for (let i in channel_ids){
+        if (!channel_ids[i]) {
+            return;
+        }
     }
 
     let now = Date.now();
